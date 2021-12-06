@@ -1,0 +1,43 @@
+<div>
+    <button mat-button routerLink="login">
+        <i class="fa fa-home" aria-hidden="true"></i> &nbsp;
+        Inicio
+    </button>
+</div>
+<div>
+    <button mat-button [matMenuTriggerFor]="dictado">
+        <i class="fa fa-music" aria-hidden="true"></i>&nbsp;
+        Dictados
+    </button>
+</div>
+<div>
+    <button mat-button routerLink="profile">
+        <i class="fa fa-id-card" aria-hidden="true"></i>
+        &nbsp; Perfil Usuario</button>
+</div>
+<div>
+    <button mat-button [matMenuTriggerFor]="administracion">
+        <i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;
+        Administración</button>
+</div>
+
+
+<!--  Menu Dictados -->
+<mat-menu  #dictado="matMenu" xPosition="after">
+  <button class="menu" mat-menu-item routerLink="dictado" >
+     <i class="fa fa-file-audio-o" aria-hidden="true"></i>&nbsp;
+    Nuevo</button>
+  <button mat-menu-item class="menu" routerLink="listaDictado">
+    <i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;  
+    Dictados Anteriores</button>
+</mat-menu>
+
+<!-- Menu Configuración -->
+<mat-menu #administracion="matMenu" xPosition="after">
+    <button mat-menu-item  class="menu" routerLink="user">
+        <i class="fa fa-user" aria-hidden="true"></i>&nbsp;
+        Usuarios</button>
+    <button mat-menu-item  class="menu" routerLink="roles">
+        <i class="fa fa-users" aria-hidden="true"></i>&nbsp;
+        Perfiles</button>
+</mat-menu>

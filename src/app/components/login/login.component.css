@@ -1,0 +1,15 @@
+.contenedor-login {
+    /* left:30%; */
+    /* position: absolute; */
+    /* position: relative; */
+    /* top: 200%;
+    left: 200%; */
+    
+    width: 400px;
+    border: 2px solid brown;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    /* transform: translate(-10%, -10%); */
+}
+

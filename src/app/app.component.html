@@ -1,0 +1,28 @@
+<mat-drawer-container class="example-container" autosize  >
+  <mat-drawer #drawer  class="example-sidenav" mode="side">
+    <app-menu *ngIf="validateLogged()"></app-menu>
+  </mat-drawer>
+  <div class="form-inline" style="padding-top:5px;" >
+    <div *ngIf="validateLogged()">
+        <button class="button-toggle"  style="margin-left: 0px;" type="button" mat-button (click)="drawer.toggle()">
+         <i class="fa fa-briefcase" aria-hidden="true"></i>
+        </button>
+
+    </div>
+    
+    <div *ngIf="validateLogged()" style="width: 95%;text-align: right;font-weight: bold;"> Bienvenido aaaa &nbsp;&nbsp;
+      <button class="boton" type="button" mat-button   (click)="logOut()">
+        Salir &nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i>
+      </button>
+    </div>
+    </div>
+    <div>
+      <div class="content"> 
+        <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  
+</mat-drawer-container>
+
+
