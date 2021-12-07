@@ -1,20 +1,19 @@
-import { Routes } from '@angular/router';
-import { DictadoComponent } from './components/dictado/dictado.component';
-import { HomeComponent } from "./components/home/home.component";
-import { ListadictadoComponent } from './components/listadictado/listadictado.component';
-import { LoginComponent } from './components/login/login.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
-import { PerfilusuarioComponent } from './components/perfilusuario/perfilusuario.component';
-import { UsuarioComponent } from './components/usuario/usuario.component';
+
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './components/shared/home/home.component';
 
 const appRoutes: Routes = [
-    { path: 'home', component: HomeComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'roles', component: PerfilComponent },
-    { path: 'user', component: UsuarioComponent },
-    { path: 'profile', component: PerfilusuarioComponent },
-    { path: 'dictado', component: DictadoComponent },
-    { path: 'listaDictado', component: ListadictadoComponent },
+    { path: 'dictados', loadChildren: () => import('./components/dictados/dictados.module').then( m => m.DictadosModule)},
+    { path: '', loadChildren: () => import('./components/shared/shared.module').then( m => m.SharedModule)},
+    { path: 'admin', loadChildren: () => import('./components/administracion/administracion.module').then( m => m.AdministracionModule)},
     { path: '', redirectTo: 'home', pathMatch: 'full' }
   ];
-  export default appRoutes;
+
+  @NgModule({
+    imports: [
+      RouterModule.forRoot(appRoutes, { useHash: true }),
+    ],
+    exports: [RouterModule]
+  })
+  export class AppRoutingModule { }
