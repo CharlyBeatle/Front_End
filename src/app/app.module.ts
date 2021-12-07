@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material.module';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from './components/shared/shared.module';
+import { RoleAuthGuard } from './services/profile-auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { SharedModule } from './components/shared/shared.module';
             SharedModule
     ],
   providers: [
-    DictadoService
+    DictadoService, RoleAuthGuard
   ],
   bootstrap: [AppComponent]
 })

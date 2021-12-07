@@ -1,6 +1,8 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { RoleAuthGuard } from "src/app/services/profile-auth-guard.service";
 import { PerfilComponent } from "./perfil/perfil.component";
+import { PerfilusuarioComponent } from "./perfilusuario/perfilusuario.component";
 import { UsuarioComponent } from "./usuario/usuario.component";
 
 const routes: Routes = [
@@ -8,13 +10,23 @@ const routes: Routes = [
         component: PerfilComponent,
         data: {
             permisos : ['ADMIN']
-        }
+        },
+        canActivate : [RoleAuthGuard]
     },
     {   path : 'usuario',    
         component: UsuarioComponent,
         data: {
             permisos : ['ADMIN']
-        }
+        },
+        canActivate : [RoleAuthGuard]
+    },
+    ,
+    {   path : 'perfil-usuario',    
+        component: PerfilusuarioComponent,
+        data: {
+            permisos : ['ADMIN','USER']
+        },
+        canActivate : [RoleAuthGuard]
     }
 ]
 
