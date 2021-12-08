@@ -1,0 +1,26 @@
+<form [formGroup]="formPerfil">
+    <div class="row">
+            <mat-form-field class="col">
+                <mat-label>Nombre de Perfil</mat-label>
+                <input matInput formControlName="nombre"/>
+                <mat-error
+                    *ngIf="formularioControls.nombre?.invalid && (formularioControls.nombre?.dirty || formularioControls.nombre?.touched)">
+                    <span *ngIf="formularioControls.nombre.errors?.required"> El campo Nombre de Perfil es requerido
+                    </span>
+                </mat-error>
+            </mat-form-field> 
+            <mat-form-field class="col">
+                <mat-label>Estado</mat-label>
+                <input matInput formControlName="estado"/>
+                <mat-error
+                    *ngIf="formularioControls.estado?.invalid && (formularioControls.estado?.dirty || formularioControls.estado?.touched)">
+                    <span *ngIf="formularioControls.estado.errors?.required"> El campo Estado es requerido
+                    </span>
+                </mat-error>
+            </mat-form-field>  
+    </div>
+    <div style="text-align: center;">
+        <input type="button" class="boton-secondary" value="Cancelar">&nbsp;
+        <input type="button" class="boton" value="Guardar">
+    </div>
+</form> 

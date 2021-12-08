@@ -1,10 +1,56 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { font-family: Roboto, "Helvetica Neue", sans-serif; 
+  background-color: #F7D9B3;
+}
 
 
 .boton {
     background-color: brown;
     color: #ffffff;
+}
+
+.boton-secondary {
+    background-color: white;
+    color: brown;
+    border: 1px brown solid;
+}
+
+.boton-secondary:hover {
+    background-color: brown;
+    color: #ffffff;
+}
+
+:ng-deep .mat-sort-header-content {
+    color: #ffffff;
+}
+
+tr.mat-header-row {
+    height: 56px;
+    background-color: brown;
+}
+
+th.mat-header-cell {
+    padding-left: 24px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.mat-paginator-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 8px;
+    flex-wrap: wrap-reverse;
+    width: 100%;
+    background-color: brown;
+    color: white;
+}
+
+.mat-paginator-icon {
+    width: 28px;
+    fill: currentColor;
+    color: white;
 }

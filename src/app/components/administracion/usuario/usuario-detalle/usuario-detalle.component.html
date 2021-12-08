@@ -1,0 +1,70 @@
+<form [formGroup]="formUsuario">
+    <div class="row">
+            <mat-form-field class="col">
+                <mat-label>Nombre de usuario</mat-label>
+                <input matInput formControlName="nombreUsuario"/>
+                <mat-error
+                    *ngIf="formularioControls.nombreUsuario?.invalid && (formularioControls.nombreUsuario?.dirty || formularioControls.nombreUsuario?.touched)">
+                    <span *ngIf="formularioControls.nombreUsuario.errors?.required"> El campo Nombre de Usuario es requerido
+                    </span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col">
+                <mat-label>Perfil</mat-label>
+                <mat-select formControlName="perfil">
+                    <mat-option value="" disabled>Seleccionar...</mat-option>
+                    <mat-option value="1">Prueba</mat-option>
+                </mat-select>
+                <mat-error
+                    *ngIf="formularioControls.perfil?.invalid && (formularioControls.perfil?.dirty || formularioControls.perfil?.touched)">
+                    <span *ngIf="formularioControls.perfil.errors?.required"> El campo Perfil es requerido
+                    </span>
+                </mat-error>
+            </mat-form-field>     
+    </div>
+    <div class="row">
+        <mat-form-field class="col">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="correo"/>
+            <mat-error
+                *ngIf="formularioControls.correo?.invalid && (formularioControls.correo?.dirty || formularioControls.correo?.touched)">
+                <span *ngIf="formularioControls.correo.errors?.required"> El campo Email es requerido</span>
+                <span *ngIf="formularioControls.correo.errors?.email"> El campo Email tiene un formato incorrecto
+                </span>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col">
+            <mat-label>Login</mat-label>
+            <input matInput formControlName="username"/>
+            <mat-error
+                *ngIf="formularioControls.username?.invalid && (formularioControls.username?.dirty || formularioControls.username?.touched)">
+                <span *ngIf="formularioControls.username.errors?.required"> El campo Login es requerido
+                </span>
+            </mat-error>
+        </mat-form-field>     
+    </div>
+    <div class="row">
+        <mat-form-field class="col">
+            <mat-label>Contraseña</mat-label>
+            <input matInput formControlName="password"/>
+            <mat-error
+                *ngIf="formularioControls.password?.invalid && (formularioControls.password?.dirty || formularioControls.password?.touched)">
+                <span *ngIf="formularioControls.password.errors?.required"> El campo Contraseña es requerido
+                </span>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col">
+            <mat-label>Estado</mat-label>
+            <input matInput formControlName="estado"/>
+            <mat-error
+                *ngIf="formularioControls.estado?.invalid && (formularioControls.estado?.dirty || formularioControls.estado?.touched)">
+                <span *ngIf="formularioControls.estado.errors?.required"> El campo Estado es requerido
+                </span>
+            </mat-error>
+        </mat-form-field>     
+    </div>
+    <div style="text-align: center;">
+        <input type="button" class="boton-secondary" value="Cancelar">&nbsp;
+        <input type="button" class="boton" value="Guardar">
+    </div>
+</form> 

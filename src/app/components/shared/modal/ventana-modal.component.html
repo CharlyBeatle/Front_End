@@ -1,0 +1,17 @@
+<header mat-dialog-title style="background-color: brown;padding-top: 0px;">
+    <div class="row" style="padding: 0px;">
+        <div class="col-8">
+            <h2>{{ modalTitle }}</h2>
+    
+        </div>
+        <div class="col-4" style="text-align: right;">
+                <mat-icon (click)="close()" style="cursor:pointer">clear</mat-icon>
+        </div>
+        
+    </div>
+    
+</header>
+
+<mat-dialog-content class="mat-typography custom-scrollbar" style="margin: 0px;padding-top: 5px;">
+    <ng-template #target></ng-template>
+</mat-dialog-content>
