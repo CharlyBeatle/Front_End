@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UsuarioDTO } from 'src/app/services/models/usuario';
 
 @Component({
   selector: 'app-usuario-detalle',
@@ -28,6 +29,10 @@ export class UsuarioDetalleComponent implements OnInit {
 
   get formularioControls(): FormGroup['controls'] {
     return this.formUsuario.controls;
+  }
+
+  save(): void {
+    
   }
 
 

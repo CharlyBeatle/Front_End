@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { VentanaModalComponent } from 'src/app/components/shared/modal/ventana-modal.component';
 import { UsuarioDTO } from 'src/app/services/models/usuario';
+import { UsuarioService } from 'src/app/services/usuario.service';
 import { UsuarioDetalleComponent } from '../usuario-detalle/usuario-detalle.component';
 
 @Component({
@@ -21,20 +22,27 @@ export class UsuarioComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog,
+              private usuarioService: UsuarioService) {
     this.getUsuarios();
     
   }
 
   getUsuarios(): void {
-    this.datos = [
-      {idUsuario: 1, nombre: 'Juan Perez',nombrePerfil: 'Usuario Estándar', estado:true , username: 'juan.perez'},
-      {idUsuario: 2, nombre: 'Juan Perez',nombrePerfil: 'Usuario Estándar', estado:true , username: 'juan.perez'},
-      {idUsuario: 3, nombre: 'Juan Perez',nombrePerfil: 'Usuario Estándar', estado:true , username: 'juan.perez'},
-      {idUsuario: 4, nombre: 'Juan Perez',nombrePerfil: 'Usuario Estándar', estado:true , username: 'juan.perez'},
-      {idUsuario: 5, nombre: 'Juan Perez',nombrePerfil: 'Usuario Estándar', estado:true , username: 'juan.perez'},
-      {idUsuario: 6, nombre: 'Juan Perez',nombrePerfil: 'Usuario Estándar', estado:true , username: 'juan.perez'}
-    ]
+    this.usuarioService.getList().subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {}
+    );
+    // this.datos = [
+    //   {idUsuario: 1, nombre: 'Juan Perez',nombrePerfil: 'Usuario Estándar', estado:true , username: 'juan.perez'},
+    //   {idUsuario: 2, nombre: 'Juan Perez',nombrePerfil: 'Usuario Estándar', estado:true , username: 'juan.perez'},
+    //   {idUsuario: 3, nombre: 'Juan Perez',nombrePerfil: 'Usuario Estándar', estado:true , username: 'juan.perez'},
+    //   {idUsuario: 4, nombre: 'Juan Perez',nombrePerfil: 'Usuario Estándar', estado:true , username: 'juan.perez'},
+    //   {idUsuario: 5, nombre: 'Juan Perez',nombrePerfil: 'Usuario Estándar', estado:true , username: 'juan.perez'},
+    //   {idUsuario: 6, nombre: 'Juan Perez',nombrePerfil: 'Usuario Estándar', estado:true , username: 'juan.perez'}
+    // ]
     this.dataSource = new MatTableDataSource(this.datos);
   }
 

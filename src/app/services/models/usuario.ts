@@ -6,4 +6,5 @@ export interface UsuarioDTO {
     nombrePerfil?: string;
     password?: string;
     estado?: boolean;
+    correo?: string;
 }

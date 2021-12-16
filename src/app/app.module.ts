@@ -9,7 +9,9 @@ import { MaterialModule } from './material.module';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from './components/shared/shared.module';
 import { RoleAuthGuard } from './services/profile-auth-guard.service';
+import { UsuarioService } from './services/usuario.service';
 
+const services = [DictadoService, UsuarioService, RoleAuthGuard]
 @NgModule({
   declarations: [
     AppComponent
@@ -22,9 +24,7 @@ import { RoleAuthGuard } from './services/profile-auth-guard.service';
             HttpClientModule,
             SharedModule
     ],
-  providers: [
-    DictadoService, RoleAuthGuard
-  ],
+  providers: [services],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
