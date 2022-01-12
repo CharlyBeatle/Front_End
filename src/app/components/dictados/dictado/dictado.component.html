@@ -1,12 +1,50 @@
 
-<textarea name="abc" id="abc"  cols="80" rows="15" #z disabled>
-{{dictadoOriginal}}
-</textarea>
-
-<hr />
-
-<div id="paper" class="paper"></div>
-<div id="audio"></div>
-<div id="audio2"></div>
-<div id="selection"></div>
-<input type="button" (click)="prueba()">
+<div class="container">
+    <h1>Nuevo Dictado</h1>
+    <hr />
+    <form  [formGroup]="formConsulta">
+        <div class="row">
+            <mat-form-field class="col">
+                <mat-label>Nivel de Dictado</mat-label>
+                <mat-select formControlName="dificultad">
+                    <mat-option value="" disabled>Seleccionar...</mat-option>
+                    <mat-option value="1">Fácil</mat-option>
+                    <mat-option value="2">Intermedio</mat-option>
+                    <mat-option value="3">Dificil</mat-option>
+                </mat-select>
+            </mat-form-field> 
+            <div class="col">
+                <input type="button" class="boton" value="Generar" (click) ="generar()">
+            </div>
+        </div>
+    </form>
+    <textarea name="abc" id="abc"  cols="80" rows="15" hidden>
+    {{dictadoOriginal}}
+    </textarea>
+    
+    <hr />
+    <h2>Dictado</h2>
+    <div id="paper" class="paper" hidden></div>
+    <div id="audio" [hidden]="!showAudio"></div>
+    <br>
+    <div class="row" *ngIf="validarCantidadCompas()">
+        <div style="padding: 5px;" *ngFor="let item of botones" >
+            <input  type="button" class="boton" [disabled]="(conteoCompas + item.Valor) > longitudCompas" [value]="item.NombreFigura" (click)="agregarNota(item.IndiceFigura,item.Valor)">
+        </div>
+    </div>
+    <form [formGroup]="formGuardar">
+        <textarea name="abcRespuesta" id="abcRespuesta"  cols="80" rows="15" formControlName="dictado" hidden>
+        </textarea>
+    </form>
+    <hr />
+    <h2>Respuesta</h2>
+    <div id="paperRespuesta" class="paper" ></div>
+    <div id="audioRespuesta"></div>
+    {{conteoCompas}} &nbsp; {{longitudCompas}}
+    <br>
+    <div class="row" style="text-align: right;">
+        <input type="button" style="padding: 5px;" class="boton" value="Borrar Ultima Nota" (click)="borrarUltima()">
+        <input type="button" style="padding: 5px;" class="boton" value="Borrar Todo" (click)="borrarTodo()">
+        <input type="button" style="padding: 5px;" class="boton" value="Guardar y Validar">
+    </div>
+</div>

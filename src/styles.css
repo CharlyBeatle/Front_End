@@ -11,6 +11,12 @@ body { font-family: Roboto, "Helvetica Neue", sans-serif;
     color: #ffffff;
 }
 
+.boton:disabled {
+    background-color: gray;
+    color: #ffffff;
+    cursor: not-allowed;
+}
+
 .boton-secondary {
     background-color: white;
     color: brown;

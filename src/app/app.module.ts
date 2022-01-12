@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from './components/shared/shared.module';
 import { RoleAuthGuard } from './services/profile-auth-guard.service';
 import { UsuarioService } from './services/usuario.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const services = [DictadoService, UsuarioService, RoleAuthGuard]
 @NgModule({
@@ -22,7 +23,8 @@ const services = [DictadoService, UsuarioService, RoleAuthGuard]
             AppRoutingModule,
             MaterialModule,
             HttpClientModule,
-            SharedModule
+            SharedModule,
+            ReactiveFormsModule
     ],
   providers: [services],
   bootstrap: [AppComponent]

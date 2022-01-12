@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {environment} from '../../environments/environment'
+import { DictadoGenerado } from './models/dictadoGenerado';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class DictadoService {
     return this.client.get(`${this.urlService}`);
   }
 
-  getNew(dificultad: number): Observable<any> {
+  getNew(dificultad: number): Observable<DictadoGenerado> {
     return this.client.get(`${this.urlService}/GetDictado?dificultad=${dificultad}`);
   }
 
