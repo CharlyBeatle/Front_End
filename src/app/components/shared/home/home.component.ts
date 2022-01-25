@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
               private authService: AuthService) { }
 
   ngOnInit(): void {
+    console.log('Entre Home');
     if(!this.authService.validateLogged()) {
       this.router.navigateByUrl('/login');
     }

@@ -5,6 +5,8 @@ declare var ABCJS: any;
 import abcjsx from 'abcjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DictadoGenerado } from 'src/app/services/models/dictadoGenerado';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-dictado',
@@ -21,10 +23,13 @@ export class DictadoComponent implements OnInit {
   dictadoRespuesta = '';
   dictadoGenerado: DictadoGenerado;
   botones: any[];
+  showBotonesAcciones = false;
   conteoCompas: number = 0;
+  cantidadNotas: number = 0;
   longitudCompas: number = 0;
   conteoCantidadCompas: number = 0;
   cantidadCompas: number = 0;
+  compas: string[] = [];
   constructor(private service: DictadoService,
               private fb: FormBuilder) { }
 
@@ -62,6 +67,8 @@ export class DictadoComponent implements OnInit {
   
   generar(){
     this.dictadoRespuesta = '';
+    this.cantidadNotas = 0;
+    this.compas = [];
     this.conteoCantidadCompas = 0;
     this.showAudio = false;
     if(this.formConsulta.valid) {
@@ -75,9 +82,9 @@ export class DictadoComponent implements OnInit {
           this.conteoCompas = 0;
           this.longitudCompas = Number(res.Metrica.split('/')[0]);
           this.cantidadCompas = res.CantidadCompas;
-          setTimeout(this.initEditor,500); 
+          setTimeout(this.initEditor,50); 
           var element = document.getElementById('abc');
-          
+          this.showBotonesAcciones = true;
           var event = new Event('change');
           element.dispatchEvent(event);
           this.initEditorRespuesta(res.Metrica);
@@ -93,11 +100,9 @@ export class DictadoComponent implements OnInit {
 
 
   initEditorRespuesta(metrica: string) {
-    console.log(metrica);
     this.dictadoRespuesta = `M: ${metrica !== undefined ?
-                            metrica : ''} \n|`;
+                            metrica : ''} \n|  `;
     this.formGuardar.controls.dictado.setValue(this.dictadoRespuesta);
-    this.conteoCantidadCompas += 1;
     this.dictadoObjRespuesta = new abcjsx.Editor('abcRespuesta',
     {
        paper_id: 'paperRespuesta',
@@ -117,14 +122,39 @@ export class DictadoComponent implements OnInit {
  }
 
  agregarNota(valor: string, unidad: number): void {
-   console.log(this.conteoCompas);
    if((this.conteoCompas + unidad) >= this.longitudCompas) {
-    this.dictadoRespuesta += `${this.dictadoGenerado.Nota}${valor} | `;
-    this.conteoCompas = 0;
-    this.conteoCantidadCompas += 1;
+      // this.dictadoRespuesta += `${this.dictadoGenerado.Nota}${valor}| `;
+      if ( this.compas[this.conteoCantidadCompas -1] !== '') {
+        this.compas[this.conteoCantidadCompas -1] += ` ${this.dictadoGenerado.Nota}${valor}`; 
+        this.dictadoRespuesta += ` ${this.dictadoGenerado.Nota}${valor}| `;
+        this.cantidadNotas += 1;
+      } else {
+        this.compas[this.conteoCantidadCompas -1] += ` ${this.dictadoGenerado.Nota}${valor}`;
+        this.dictadoRespuesta += `${this.dictadoGenerado.Nota}${valor}| `;
+        this.cantidadNotas = 1;
+      }
+    
+      this.conteoCompas = 0;
+      if(this.conteoCantidadCompas === this.cantidadCompas) {
+        this.conteoCantidadCompas += 1;
+        this.dictadoRespuesta = this.dictadoRespuesta.substring(0,this.dictadoRespuesta.length - 1);
+      } 
+      
+    
    } else {
-    this.dictadoRespuesta += `${this.dictadoGenerado.Nota}${valor} `;
-    this.conteoCompas += unidad;
+      // this.dictadoRespuesta += `${this.dictadoGenerado.Nota}${valor} `; 
+      if (this.conteoCompas === 0) {
+        this.conteoCantidadCompas += 1;
+        this.compas[this.conteoCantidadCompas -1] = `${this.dictadoGenerado.Nota}${valor}`; 
+        this.dictadoRespuesta += `${this.dictadoGenerado.Nota}${valor}`;
+        this.cantidadNotas = 1;
+      }
+      else {
+        this.compas[this.conteoCantidadCompas -1] += ` ${this.dictadoGenerado.Nota}${valor}`;
+        this.dictadoRespuesta += ` ${this.dictadoGenerado.Nota}${valor}`;
+        this.cantidadNotas += 1;
+      }
+      this.conteoCompas += unidad;
    }
    
    this.formGuardar.controls.dictado.setValue(this.dictadoRespuesta);
@@ -142,13 +172,67 @@ export class DictadoComponent implements OnInit {
  }
 
  borrarUltima(): void {
+   
+   const notas = (this.cantidadNotas - 1) * 2;
+   const espacios = (this.cantidadNotas > 2 ? (this.cantidadNotas - 2) * 1 : 0);
+   if(this.compas.length !== 0 && this.compas[this.conteoCantidadCompas - 1] !== '') {
+      console.log(this.conteoCantidadCompas);
+      const valores = this.compas[this.conteoCantidadCompas - 1];
+      this.cantidadNotas -= 1;
+      console.log(valores);
+      console.log(notas+espacios);
+      this.compas[this.conteoCantidadCompas - 1] = valores.substring(0,notas+espacios);
+      console.log(this.compas);
+      this.actualizarDictado();
+   }
 
+   if(this.compas.length > 1 && this.compas[this.conteoCantidadCompas - 1] === '') {
+    console.log('qqq');
+    this.compas.pop();
+    this.conteoCantidadCompas -= 1;
+    this.cantidadNotas = this.compas[this.conteoCantidadCompas - 1].split(' ').length;
+    console.log(this.compas);
+    this.actualizarDictado();
+   }
+ }
+
+ borrarCompas(): void {
+  if(this.compas.length !== 0 && this.compas[this.conteoCantidadCompas - 1] !== '') {
+    this.compas.pop();
+    console.log(this.compas);
+  }
+ }
+
+ guardar(): void {
+  console.log('Original ',this.dictadoOriginal);
+  console.log('Respuesta ',this.dictadoRespuesta);
+  
+   if(this.dictadoOriginal === this.dictadoRespuesta) {
+     alert('OK');
+   } else {
+     alert('tiene diferencias')
+   }
+ }
+
+ actualizarDictado(): void {
+  this.dictadoRespuesta = `M: ${this.dictadoGenerado.Metrica} \n|  `;
+   setTimeout(() => {
+     this.compas.forEach(element => {
+       this.dictadoRespuesta += `${element} | `;
+     });
+   }, 200);
+   this.formGuardar.controls.dictado.setValue(this.dictadoRespuesta);
+   console.log(this.dictadoRespuesta);
+   var element = document.getElementById('abcRespuesta');
+   var event = new Event('change');
+   element.dispatchEvent(event);
  }
 
  borrarTodo(): void {
-   this.conteoCantidadCompas = 1;
+  this.compas = [];
+  this.conteoCantidadCompas = 0;
   this.conteoCompas = 0;
-  this.dictadoRespuesta = `M: ${this.dictadoGenerado.Metrica} \n| `;
+  this.dictadoRespuesta = `M: ${this.dictadoGenerado.Metrica} \n|  `;
   console.log(this.dictadoRespuesta);
   this.formGuardar.controls.dictado.setValue(this.dictadoRespuesta);
    var element = document.getElementById('abcRespuesta');

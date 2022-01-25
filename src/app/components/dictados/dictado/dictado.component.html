@@ -24,7 +24,7 @@
     
     <hr />
     <h2>Dictado</h2>
-    <div id="paper" class="paper" hidden></div>
+    <div id="paper" class="paper"></div>
     <div id="audio" [hidden]="!showAudio"></div>
     <br>
     <div class="row" *ngIf="validarCantidadCompas()">
@@ -42,9 +42,10 @@
     <div id="audioRespuesta"></div>
     {{conteoCompas}} &nbsp; {{longitudCompas}}
     <br>
-    <div class="row" style="text-align: right;">
-        <input type="button" style="padding: 5px;" class="boton" value="Borrar Ultima Nota" (click)="borrarUltima()">
-        <input type="button" style="padding: 5px;" class="boton" value="Borrar Todo" (click)="borrarTodo()">
-        <input type="button" style="padding: 5px;" class="boton" value="Guardar y Validar">
+    <div class="row" style="text-align: right;align-items: flex-start;" *ngIf="showBotonesAcciones">
+        <!-- <input type="button" style="margin: 5px;" class="boton" value="Borrar Última Nota" (click)="borrarUltima()">
+        <input type="button" style="margin: 5px;" class="boton" value="Borrar Compas" (click)="borrarCompas()"> -->
+        <input type="button" style="margin: 5px;" class="boton" value="Borrar Todo" (click)="borrarTodo()">
+        <input type="button" style="margin: 5px;" class="boton" value="Guardar y Validar" (click)="guardar()">
     </div>
 </div>
