@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
 
   validateLogin() {
     sessionStorage.setItem('user', this.usuario);
+    sessionStorage.setItem('username', 'cgonzalez');
     sessionStorage.setItem('rol', 'ADMIN');
     this.router.navigate(['home']);
   }

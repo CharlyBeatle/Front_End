@@ -1,5 +1,5 @@
 export interface UsuarioDTO {
-    idUsuario?: number;
+    idUsuario?: string;
     nombre?: string;
     username?: string;
     idPerfil?: number;

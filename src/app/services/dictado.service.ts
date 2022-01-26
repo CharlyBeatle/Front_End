@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {environment} from '../../environments/environment'
+import { DictadoDTO } from './models/dictado';
 import { DictadoGenerado } from './models/dictadoGenerado';
 
 @Injectable({
@@ -22,6 +23,14 @@ export class DictadoService {
 
   getNew(dificultad: number): Observable<DictadoGenerado> {
     return this.client.get(`${this.urlService}/GetDictado?dificultad=${dificultad}`);
+  }
+
+  getByUser(idUsuario: string): Observable<any> {
+    return this.client.get(`${this.urlService}/ConsultatDictadosUsuario?idUsuario=${idUsuario}`);
+  }
+
+  saveDictado(dictado: DictadoDTO): Observable<any> {
+    return this.client.post(`${this.urlService}/SaveUsuario`, dictado);
   }
 
 //   save(model: TransaccionPuntosDTO): Observable<any>{

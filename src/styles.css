@@ -60,3 +60,21 @@ th.mat-header-cell {
     fill: currentColor;
     color: white;
 }
+
+.swal2-title {
+    background-color: brown;
+    color:white !important;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.swal2-close {
+    color: white;
+}
+
+.swal2-styled.swal2-cancel {
+    background-color: brown;
+}
+
+.swal2-styled.swal2-confirm {
+    background-color: brown !important;
+}

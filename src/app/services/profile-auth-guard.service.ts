@@ -16,9 +16,7 @@ export class RoleAuthGuard implements CanActivate {
     const expectedRole: string[] = route.data.permisos;
     for (const i in expectedRole) {
       const profile = sessionStorage.getItem('rol');
-      console.log(profile);
-      console.log(expectedRole[i]);
-        if (profile !== null) {
+      if (profile !== null) {
         if (profile === expectedRole[i]) {
           return true;
         }

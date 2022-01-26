@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { DictadoService } from 'src/app/services/dictado.service';
 import { DictadoDTO } from 'src/app/services/models/dictado';
 import { VentanaModalComponent } from '../../shared/modal/ventana-modal.component';
 import { DictadoDetalleComponent } from '../dictado-detalle/dictado-detalle.component';
@@ -21,20 +22,25 @@ export class ListadictadoComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog,
+              private service: DictadoService) {
     this.getDictados();
     
   }
 
   getDictados() {
-    this.datos = [
-      {tipo: 'Básico', fecha: new Date(),calificacion: false},
-      {tipo: 'Intermedio', fecha: new Date(),calificacion: true},
-      {tipo: 'Avanzado', fecha: new Date(),calificacion: false},
-      {tipo: 'Avanzado', fecha: new Date(),calificacion: true},
-      {tipo: 'Básico', fecha: new Date(),calificacion: true}
-    ]
-    this.dataSource = new MatTableDataSource(this.datos);
+    const username = sessionStorage.getItem('username');
+    this.service.getByUser(username).subscribe({
+      next:(respuesta) => {
+        console.log(respuesta);
+        this.datos = respuesta;
+        this.dataSource = new MatTableDataSource(this.datos);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      error:() => {}
+    });
+    
   }
 
   verDetalle(dictado:DictadoDTO): void {
@@ -52,8 +58,7 @@ export class ListadictadoComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    
   }
 
   applyFilter(event: Event) {

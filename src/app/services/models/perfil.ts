@@ -1,5 +1,5 @@
 export interface PerfilDTO {
     idPerfil?: number;
-    nombrePerfil?: string;
+    nombre?: string;
     estado?: boolean;
 }

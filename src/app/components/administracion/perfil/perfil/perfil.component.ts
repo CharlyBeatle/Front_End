@@ -28,8 +28,8 @@ export class PerfilComponent implements AfterViewInit {
 
   getUsuarios(): void {
     this.datos = [
-      {idPerfil: 1, nombrePerfil: 'Usuario Estándar', estado:true},
-      {idPerfil: 2, nombrePerfil: 'Administrador', estado:true}
+      // {idPerfil: 1, nombrePerfil: 'Usuario Estándar', estado:true},
+      // {idPerfil: 2, nombrePerfil: 'Administrador', estado:true}
     ]
     this.dataSource = new MatTableDataSource(this.datos);
   }

@@ -13,7 +13,7 @@
                 <mat-label>Perfil</mat-label>
                 <mat-select formControlName="perfil">
                     <mat-option value="" disabled>Seleccionar...</mat-option>
-                    <mat-option value="1">Prueba</mat-option>
+                    <mat-option [value]="item.idPerfil" *ngFor="let item of perfiles">{{item.nombre}}</mat-option>
                 </mat-select>
                 <mat-error
                     *ngIf="formularioControls.perfil?.invalid && (formularioControls.perfil?.dirty || formularioControls.perfil?.touched)">
@@ -53,7 +53,7 @@
                 </span>
             </mat-error>
         </mat-form-field>
-        <mat-form-field class="col">
+        <!-- <mat-form-field class="col">
             <mat-label>Estado</mat-label>
             <input matInput formControlName="estado"/>
             <mat-error
@@ -61,10 +61,10 @@
                 <span *ngIf="formularioControls.estado.errors?.required"> El campo Estado es requerido
                 </span>
             </mat-error>
-        </mat-form-field>     
+        </mat-form-field>      -->
     </div>
     <div style="text-align: center;">
-        <input type="button" class="boton-secondary" value="Cancelar">&nbsp;
-        <input type="button" class="boton" value="Guardar">
+        <input type="button" class="boton-secondary" value="Cancelar" (click)="cancelar()">&nbsp;
+        <input type="button" class="boton" value="Guardar" (click)="save()">
     </div>
 </form> 

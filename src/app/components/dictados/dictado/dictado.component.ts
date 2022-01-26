@@ -6,6 +6,8 @@ import abcjsx from 'abcjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DictadoGenerado } from 'src/app/services/models/dictadoGenerado';
 import Swal from 'sweetalert2';
+import { DictadoDTO } from 'src/app/services/models/dictado';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -31,7 +33,8 @@ export class DictadoComponent implements OnInit {
   cantidadCompas: number = 0;
   compas: string[] = [];
   constructor(private service: DictadoService,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.buildForms();
@@ -206,12 +209,40 @@ export class DictadoComponent implements OnInit {
  guardar(): void {
   console.log('Original ',this.dictadoOriginal);
   console.log('Respuesta ',this.dictadoRespuesta);
-  
-   if(this.dictadoOriginal === this.dictadoRespuesta) {
-     alert('OK');
-   } else {
-     alert('tiene diferencias')
-   }
+    Swal.fire(
+      { title: 'Validar y Guardar Dictado',
+        text:'¿Esta seguro de realizar la acción?',
+        showConfirmButton: true,
+        confirmButtonText: 'Confirmar',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        showCloseButton: true
+  }).then(result => {
+      if(result.value) {
+        const resultado: DictadoDTO = {
+          idTipo: this.formConsulta.controls.dificultad.value,
+          fecha: new Date(),
+          calificacion: this.dictadoOriginal === this.dictadoRespuesta,
+          detalle: {
+            dictadoOriginal: this.dictadoOriginal,
+            dictadoRespuesta: this.dictadoRespuesta
+          },
+          usuario: sessionStorage.getItem('username')
+        };
+
+        this.service.saveDictado(resultado).subscribe({
+          next: (res) => {
+            Swal.fire('',`El dictado tiene un resultado ${ (resultado.calificacion ? 'correcto' : 'incorrecto')}. ${(resultado.calificacion ? '' : 'Intentelo nuevamente en otro nuevo ejercicio.')}`
+                      , resultado.calificacion ? 'success' : 'error');
+            this.router.navigateByUrl('home');
+            
+          },
+          error: (err) => {
+            console.log(err);
+          }
+        });
+      }
+    })
  }
 
  actualizarDictado(): void {

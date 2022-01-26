@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { VentanaModalComponent } from 'src/app/components/shared/modal/ventana-modal.component';
 import { UsuarioDTO } from 'src/app/services/models/usuario';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import Swal from 'sweetalert2';
 import { UsuarioDetalleComponent } from '../usuario-detalle/usuario-detalle.component';
 
 @Component({
@@ -16,7 +17,7 @@ import { UsuarioDetalleComponent } from '../usuario-detalle/usuario-detalle.comp
 export class UsuarioComponent implements AfterViewInit {
 
   datos: UsuarioDTO[] = [];
-  displayedColumns: string[] = ['idUsuario', 'nombre', 'username','nombrePerfil','estado', 'detalle'];
+  displayedColumns: string[] = ['idUsuario', 'nombre','nombrePerfil','estado', 'detalle'];
   dataSource: MatTableDataSource<UsuarioDTO>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -31,19 +32,17 @@ export class UsuarioComponent implements AfterViewInit {
   getUsuarios(): void {
     this.usuarioService.getList().subscribe(
       (res) => {
+        this.datos = res;
         console.log(res);
+        this.dataSource = new MatTableDataSource(this.datos);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },
-      (err) => {}
+      (err) => {
+        Swal.fire('','Ocurrio un error consultando la información','error');
+      }
     );
-    // this.datos = [
-    //   {idUsuario: 1, nombre: 'Juan Perez',nombrePerfil: 'Usuario Estándar', estado:true , username: 'juan.perez'},
-    //   {idUsuario: 2, nombre: 'Juan Perez',nombrePerfil: 'Usuario Estándar', estado:true , username: 'juan.perez'},
-    //   {idUsuario: 3, nombre: 'Juan Perez',nombrePerfil: 'Usuario Estándar', estado:true , username: 'juan.perez'},
-    //   {idUsuario: 4, nombre: 'Juan Perez',nombrePerfil: 'Usuario Estándar', estado:true , username: 'juan.perez'},
-    //   {idUsuario: 5, nombre: 'Juan Perez',nombrePerfil: 'Usuario Estándar', estado:true , username: 'juan.perez'},
-    //   {idUsuario: 6, nombre: 'Juan Perez',nombrePerfil: 'Usuario Estándar', estado:true , username: 'juan.perez'}
-    // ]
-    this.dataSource = new MatTableDataSource(this.datos);
+    
   }
 
   edit(usuario: UsuarioDTO): void {
@@ -58,6 +57,10 @@ export class UsuarioComponent implements AfterViewInit {
         data: usuario
       }
     });
+
+    modal.afterClosed().subscribe(res => {
+      this.getUsuarios();
+    });
   }
 
   new(): void {
@@ -71,11 +74,14 @@ export class UsuarioComponent implements AfterViewInit {
         component:  componente
       }
     });
+
+    modal.afterClosed().subscribe(res => {
+      this.getUsuarios();
+    });
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    
   }
 
   applyFilter(event: Event) {
@@ -85,6 +91,28 @@ export class UsuarioComponent implements AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  cambiarEstado(usuario: UsuarioDTO): void {
+    Swal.fire(
+      { title:'Cambio Estado Usuario',
+        text: `¿Esta seguro de realizar el cambio de estado del usuario ${usuario.idUsuario}?`,
+        showCloseButton: true,
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+              }).then((result) => {
+      if(result.value) {
+        usuario.estado = !usuario.estado;
+        this.usuarioService.save(usuario).subscribe({
+          next: () => {
+            Swal.fire('',`El usuario ${usuario.idUsuario} se encuentra ahora ${usuario.estado ? 'activo': 'inactivo'}`,'info');
+          }
+        });
+      }
+    });
+    
   }
 
 }

@@ -2,17 +2,18 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {environment} from '../../environments/environment'
+import { PerfilDTO } from './models/perfil';
 import { UsuarioDTO } from './models/usuario';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsuarioService {
+export class PerfilService {
 
   private urlService: string;
 
   constructor(private client: HttpClient) {
-    this.urlService = `${environment.urlBack}/Usuario`;
+    this.urlService = `${environment.urlBack}/Perfil`;
   }
 
   
@@ -21,10 +22,10 @@ export class UsuarioService {
   }
 
   getUsuario(id: string): Observable<any> {
-    return this.client.get(`${this.urlService}/GetUsuario?id=${id}`);
+    return this.client.get(`${this.urlService}/GetPerfilById?id=${id}`);
   }
 
-  save(usuario: UsuarioDTO): Observable<any> {
-    return this.client.post(`${this.urlService}/SaveUsuario`, usuario);
+  save(perfil: PerfilDTO): Observable<any> {
+    return this.client.post(`${this.urlService}/SavePerfil`, perfil);
   }
 }
