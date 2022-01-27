@@ -1,1 +1,21 @@
-<p>dictado-detalle works!</p>
+<div class="container">
+
+    <textarea name="abc" id="abc"  cols="80" rows="15" hidden>
+    {{dictado.detalle.dictadoOriginal}}
+    </textarea>
+
+    <h2>Original</h2>
+    <div id="paper" class="paper"></div>
+    <div id="audio"></div>
+    <br>
+
+
+    <textarea name="abcRespuesta" id="abcRespuesta"  cols="80" rows="15" hidden>
+    {{dictado.detalle.dictadoRespuesta}}
+    </textarea>
+    <hr />
+    <h2>Respuesta</h2>
+    <div id="paperRespuesta" class="paper" ></div>
+    <div id="audioRespuesta"></div>
+    <br>
+</div>

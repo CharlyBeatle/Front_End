@@ -13,36 +13,38 @@
   }
 
   .button-toggle {
-      padding-top: 0px;
-      /* left: -10px; */
-      text-align: center;
-      margin-left: 10px;
-      min-width: 30px;
-      border-radius: 0px 10px 10px 0px;
-      background-color: brown;
-      color: #ffffff;
-      box-shadow: -1px 0px 35px -15px rgba(0,0,0,0.75);
+    padding-top: 0px;
+    /* left: -10px; */
+    text-align: center;
+    margin-left: 10px;
+    min-width: 30px;
+    border-radius: 0px 10px 10px 0px;
+    background-color: brown;
+    color: #ffffff;
+    box-shadow: -1px 0px 35px -15px rgba(0,0,0,0.75);
   }
-
-
+  
+  
   .content {
-      padding: 20px;
+    padding: 20px;
   }
-
+  
   ::ng-deep .mat-menu-content{
-      margin: 0;
-    background-color: brown;
-    color: #ffffff;
-    border-color: brown;
-  }
-
-  ::ng-deep button.mat-menu-item{
     margin: 0;
-    background-color: brown;
-    color: #ffffff;
-    border-color: brown;
+  background-color: brown;
+  color: #ffffff;
+  border-color: brown;
+  }
+  
+  ::ng-deep button.mat-menu-item{
+  margin: 0;
+  background-color: brown;
+  color: #ffffff;
+  border-color: brown;
+  }
+  
+  ::ng-deep button.mat-menu-item:hover{
+  opacity: 0.85;
   }
 
-  ::ng-deep button.mat-menu-item:hover{
-    opacity: 0.85;
-  }
+ 

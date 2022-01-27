@@ -8,8 +8,21 @@
                     <span *ngIf="formularioControls.nombre.errors?.required"> El campo Nombre de Perfil es requerido
                     </span>
                 </mat-error>
-            </mat-form-field> 
+            </mat-form-field>
             <mat-form-field class="col">
+                <mat-label>Tipo de Perfil</mat-label>
+                <mat-select formControlName="tipo">
+                    <mat-option value="" disabled>Seleccionar...</mat-option>
+                    <mat-option value="ADMIN">ADMIN</mat-option>
+                    <mat-option value="USUARIO">USUARIO</mat-option>
+                </mat-select>
+                <mat-error
+                    *ngIf="formularioControls.tipo?.invalid && (formularioControls.tipo?.dirty || formularioControls.tipo?.touched)">
+                    <span *ngIf="formularioControls.tipo.errors?.required"> El campo Tipo de Perfil es requerido
+                    </span>
+                </mat-error>
+            </mat-form-field> 
+            <!-- <mat-form-field class="col">
                 <mat-label>Estado</mat-label>
                 <input matInput formControlName="estado"/>
                 <mat-error
@@ -17,10 +30,10 @@
                     <span *ngIf="formularioControls.estado.errors?.required"> El campo Estado es requerido
                     </span>
                 </mat-error>
-            </mat-form-field>  
+            </mat-form-field>   -->
     </div>
     <div style="text-align: center;">
-        <input type="button" class="boton-secondary" value="Cancelar">&nbsp;
-        <input type="button" class="boton" value="Guardar">
+        <input type="button" class="boton-secondary" value="Cancelar" (click)="cancelar()">&nbsp;
+        <input type="button" class="boton" value="Guardar" (click)="guardar()">
     </div>
 </form> 

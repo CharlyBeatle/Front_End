@@ -8,14 +8,14 @@ const routes: Routes = [
     {   path : 'dictado',    
         component: DictadoComponent,
         data: {
-            permisos : ['ADMIN','USER']
+            permisos : ['ADMIN','USUARIO']
         },
         canActivate : [RoleAuthGuard]
     },
     {   path : 'lista-dictado',    
         component: ListadictadoComponent,
         data: {
-            permisos : ['ADMIN','USER']
+            permisos : ['ADMIN','USUARIO']
         },
         canActivate : [RoleAuthGuard]
     }

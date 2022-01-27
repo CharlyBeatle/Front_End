@@ -27,4 +27,8 @@ export class UsuarioService {
   save(usuario: UsuarioDTO): Observable<any> {
     return this.client.post(`${this.urlService}/SaveUsuario`, usuario);
   }
+
+  validateLogin(user: string, password: string): Observable<UsuarioDTO> {
+    return this.client.get(`${this.urlService}/ValidateLogin?user=${user}&password=${password}`);
+  }
 }

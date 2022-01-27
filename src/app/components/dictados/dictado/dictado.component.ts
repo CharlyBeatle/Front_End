@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DictadoService } from 'src/app/services/dictado.service';
-declare var ABCJS: any;
+// declare var ABCJS: any;
 // import * as abcJS from '../../../assets/js/abc.js';
 import abcjsx from 'abcjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -91,7 +91,6 @@ export class DictadoComponent implements OnInit {
           var event = new Event('change');
           element.dispatchEvent(event);
           this.initEditorRespuesta(res.Metrica);
-          console.log(res);
         },
         err => {
           console.log(err);
@@ -179,22 +178,16 @@ export class DictadoComponent implements OnInit {
    const notas = (this.cantidadNotas - 1) * 2;
    const espacios = (this.cantidadNotas > 2 ? (this.cantidadNotas - 2) * 1 : 0);
    if(this.compas.length !== 0 && this.compas[this.conteoCantidadCompas - 1] !== '') {
-      console.log(this.conteoCantidadCompas);
       const valores = this.compas[this.conteoCantidadCompas - 1];
       this.cantidadNotas -= 1;
-      console.log(valores);
-      console.log(notas+espacios);
       this.compas[this.conteoCantidadCompas - 1] = valores.substring(0,notas+espacios);
-      console.log(this.compas);
       this.actualizarDictado();
    }
 
    if(this.compas.length > 1 && this.compas[this.conteoCantidadCompas - 1] === '') {
-    console.log('qqq');
     this.compas.pop();
     this.conteoCantidadCompas -= 1;
     this.cantidadNotas = this.compas[this.conteoCantidadCompas - 1].split(' ').length;
-    console.log(this.compas);
     this.actualizarDictado();
    }
  }
@@ -202,13 +195,10 @@ export class DictadoComponent implements OnInit {
  borrarCompas(): void {
   if(this.compas.length !== 0 && this.compas[this.conteoCantidadCompas - 1] !== '') {
     this.compas.pop();
-    console.log(this.compas);
   }
  }
 
  guardar(): void {
-  console.log('Original ',this.dictadoOriginal);
-  console.log('Respuesta ',this.dictadoRespuesta);
     Swal.fire(
       { title: 'Validar y Guardar Dictado',
         text:'¿Esta seguro de realizar la acción?',
@@ -253,7 +243,6 @@ export class DictadoComponent implements OnInit {
      });
    }, 200);
    this.formGuardar.controls.dictado.setValue(this.dictadoRespuesta);
-   console.log(this.dictadoRespuesta);
    var element = document.getElementById('abcRespuesta');
    var event = new Event('change');
    element.dispatchEvent(event);
@@ -264,7 +253,6 @@ export class DictadoComponent implements OnInit {
   this.conteoCantidadCompas = 0;
   this.conteoCompas = 0;
   this.dictadoRespuesta = `M: ${this.dictadoGenerado.Metrica} \n|  `;
-  console.log(this.dictadoRespuesta);
   this.formGuardar.controls.dictado.setValue(this.dictadoRespuesta);
    var element = document.getElementById('abcRespuesta');
    var event = new Event('change');

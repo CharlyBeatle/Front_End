@@ -10,11 +10,11 @@
         Dictados
     </button>
 </div>
-<div *ngIf="validarRol('Perfil Usuario')">
+<!-- <div *ngIf="validarRol('Perfil Usuario')">
     <button mat-button routerLink="admin/perfilUsuario">
         <i class="fa fa-id-card" aria-hidden="true"></i>
         &nbsp; Perfil Usuario</button>
-</div>
+</div> -->
 <div *ngIf="validarRol('Admin')">
     <button mat-button [matMenuTriggerFor]="administracion">
         <i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;

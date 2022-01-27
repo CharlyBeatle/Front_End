@@ -18,7 +18,7 @@ table {
     color: red;
 }
 
-::ng-deep .mat-select-arrow {
+/* ::ng-deep .mat-select-arrow {
     width: 0;
     height: 0;
     border-left: 5px solid transparent;
@@ -41,5 +41,5 @@ table {
 ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
     height: 1px;
     background-color: white;
-}
+} */
 

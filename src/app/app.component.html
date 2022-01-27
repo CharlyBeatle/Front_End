@@ -10,14 +10,14 @@
 
     </div>
     
-    <div *ngIf="validateLogged()" style="width: 95%;text-align: right;font-weight: bold;"> Bienvenido aaaa &nbsp;&nbsp;
+    <div *ngIf="validateLogged()" style="width: 95%;text-align: right;font-weight: bold;"> Bienvenido {{nombre}} &nbsp;&nbsp;
       <button class="boton" type="button" mat-button   (click)="logOut()">
         Salir &nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i>
       </button>
     </div>
     </div>
     <div>
-      <div class="content"> 
+      <div class="content">  
         <router-outlet></router-outlet>
     </div>
   </div>

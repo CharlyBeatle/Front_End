@@ -25,7 +25,7 @@
       
           <ng-container matColumnDef="nombrePerfil">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-            <td mat-cell *matCellDef="let row"> {{row.nombrePerfil}} </td>
+            <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
           </ng-container>
 
       
@@ -39,7 +39,7 @@
             <td mat-cell *matCellDef="let row">
 
                 <mat-icon style="cursor: pointer;color:brown" matTooltip="Editar" aria-hidden="false" aria-label="Example home icon" (click)="edit(row)">create</mat-icon>
-                <mat-icon style="cursor: pointer;color:brown" matTooltip="Activar/Desactivar" aria-hidden="false" aria-label="Example home icon">block</mat-icon>
+                <mat-icon style="cursor: pointer;color:brown" matTooltip="Activar/Desactivar" aria-hidden="false" aria-label="Example home icon" (click)="cambiarEstado(row)">block</mat-icon>
             </td>
           </ng-container>
       

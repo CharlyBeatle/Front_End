@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Injectable()
 export class RoleAuthGuard implements CanActivate {
@@ -22,6 +23,10 @@ export class RoleAuthGuard implements CanActivate {
         }
       }
     }
+    Swal.fire({text:'No tiene permisos sobre esta opción de menu',
+                icon:'info',
+                timer: 1000,
+              showConfirmButton: false});
     this.router.navigate(['home']);
     return false;
   }

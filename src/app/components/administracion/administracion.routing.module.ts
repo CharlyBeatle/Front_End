@@ -23,7 +23,7 @@ const routes: Routes = [
     {   path : 'perfilUsuario',    
         component: PerfilusuarioComponent,
         data: {
-            permisos : ['ADMIN','USER']
+            permisos : ['ADMIN','USUARIO']
         },
         canActivate : [RoleAuthGuard]
     }

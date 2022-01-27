@@ -8,9 +8,9 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   clickMenu: boolean;
+  nombre: string;
   
   constructor(private router: Router) {
-
   }
 
   validateLogged(): boolean  {
@@ -18,6 +18,7 @@ export class AppComponent {
     if (login === null) {
       return false;
     }
+    this.nombre = login;
     return true;
   }
 
